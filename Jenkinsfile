@@ -21,9 +21,9 @@ pipeline {
         stage("Validate Parameters") {
             steps {
                 script {
-                     if (params.FRONTEND_DOCKER_TAG == '' || 
-    params.BACKEND_DOCKER_TAG == '' || 
-    params.EC2_INSTANCE_ID == '') {
+                    if (!params.FRONTEND_DOCKER_TAG?.trim() ||
+    !params.BACKEND_DOCKER_TAG?.trim() ||
+    !params.EC2_INSTANCE_ID?.trim()) { {
     error("FRONTEND_DOCKER_TAG, BACKEND_DOCKER_TAG and EC2_INSTANCE_ID must be provided.")
 }
                 }
