@@ -9,15 +9,23 @@ pipeline {
     parameters {
         string(name: 'FRONTEND_DOCKER_TAG', defaultValue: '', description: 'Setting docker image for latest push')
         string(name: 'BACKEND_DOCKER_TAG', defaultValue: '', description: 'Setting docker image for latest push')
+
+        string(
+    name: 'EC2_INSTANCE_ID',
+    defaultValue: '',
+    description: 'EC2 instance ID used to retrieve the application public IP'
+)
     }
     
     stages {
         stage("Validate Parameters") {
             steps {
                 script {
-                    if (params.FRONTEND_DOCKER_TAG == '' || params.BACKEND_DOCKER_TAG == '') {
-                        error("FRONTEND_DOCKER_TAG and BACKEND_DOCKER_TAG must be provided.")
-                    }
+                     if (params.FRONTEND_DOCKER_TAG == '' || 
+    params.BACKEND_DOCKER_TAG == '' || 
+    params.EC2_INSTANCE_ID == '') {
+    error("FRONTEND_DOCKER_TAG, BACKEND_DOCKER_TAG and EC2_INSTANCE_ID must be provided.")
+}
                 }
             }
         }
@@ -75,7 +83,9 @@ pipeline {
                     steps {
                         script{
                             dir("Automations"){
-                                sh "bash updatebackendnew.sh"
+                                 withEnv(["EC2_INSTANCE_ID=${params.EC2_INSTANCE_ID}"]) {
+        sh "bash updatebackendnew.sh"
+    }
                             }
                         }
                     }
@@ -85,7 +95,9 @@ pipeline {
                     steps {
                         script{
                             dir("Automations"){
-                                sh "bash updatefrontendnew.sh"
+                                 withEnv(["EC2_INSTANCE_ID=${params.EC2_INSTANCE_ID}"]) {
+        sh "bash updatefrontendnew.sh"
+    }
                             }
                         }
                     }
