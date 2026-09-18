@@ -18,3 +18,7 @@ variable "public_key_path" {
   type        = string
   default     = "~/.ssh/id_rsa.pub"
 }
+variable "allowed_ssh_cidr" {
+  description = "CIDR block allowed to access the EC2 instance via SSH"
+  type        = string
+}
