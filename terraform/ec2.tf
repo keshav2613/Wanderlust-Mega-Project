@@ -7,7 +7,7 @@ resource "aws_default_vpc" "default" {
 
 }
 
-resource "aws_security_group" "allow_user_to_connect" {
+resource "aws_security_group" "wanderlust_web" {
   name = "wanderlust-web-sg"
   description = "Allow user to connect"
   vpc_id      = aws_default_vpc.default.id
@@ -52,7 +52,7 @@ resource "aws_instance" "wanderlust_server" {
   ami             = var.ami_id
   instance_type   = var.instance_type
   key_name        = aws_key_pair.deployer.key_name
-  security_groups = [aws_security_group.allow_user_to_connect.name]
+  security_groups = [aws_security_group.wanderlust_web.name]
   tags = {
     Name = "wanderlust-devops-server"
   }
