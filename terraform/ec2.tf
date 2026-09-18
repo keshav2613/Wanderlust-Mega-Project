@@ -52,8 +52,7 @@ resource "aws_instance" "wanderlust_server" {
   ami             = var.ami_id
   instance_type   = var.instance_type
   key_name        = aws_key_pair.deployer.key_name
-  security_groups = [aws_security_group.wanderlust_web.name]
-  tags = {
+  vpc_security_group_ids = [aws_security_group.wanderlust_web.id]  tags = {
     Name = "wanderlust-devops-server"
   }
   root_block_device {
