@@ -8,7 +8,7 @@ resource "aws_default_vpc" "default" {
 }
 
 resource "aws_security_group" "allow_user_to_connect" {
-  name        = "allow TLS"
+  name = "wanderlust-web-sg"
   description = "Allow user to connect"
   vpc_id      = aws_default_vpc.default.id
   ingress {
@@ -44,7 +44,7 @@ resource "aws_security_group" "allow_user_to_connect" {
   }
 
   tags = {
-    Name = "mysecurity"
+    Name = "wanderlust-web-sg"
   }
 }
 
