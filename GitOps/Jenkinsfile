@@ -5,6 +5,12 @@ pipeline {
     parameters {
         string(name: 'FRONTEND_DOCKER_TAG', defaultValue: '', description: 'Frontend Docker tag of the image built by the CI job')
         string(name: 'BACKEND_DOCKER_TAG', defaultValue: '', description: 'Backend Docker tag of the image built by the CI job')
+
+        string(
+        name: 'EC2_INSTANCE_ID',
+        defaultValue: '',
+        description: 'EC2 instance ID used to retrieve the application public IP'
+    )
     }
 
     stages {
