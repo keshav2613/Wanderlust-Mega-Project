@@ -12,3 +12,9 @@ variable "instance_type" {
   description = "Instance type for the EC2 instance"
   default     = "t2.large"
 }
+
+variable "public_key_path" {
+  description = "Path to the SSH public key used for the EC2 instance"
+  type        = string
+  default     = "~/.ssh/id_rsa.pub"
+}
